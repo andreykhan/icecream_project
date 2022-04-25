@@ -1,15 +1,19 @@
 from django.http import HttpResponse
-
 from django.shortcuts import render
+from .models import Post
 
 def index(request):
-    template = 'posts/index.html'
-    title = 'main page'
+    # Одна строка вместо тысячи слов на SQL:
+    # в переменную posts будет сохранена выборка из 10 объектов модели Post,
+    # отсортированных по полю pub_date по убыванию (от больших значений к меньшим)
+    #posts = Post.objects.order_by('-pub_date')[:10]
+    posts = Post.objects.order_by('-pub_date')[:10]
+    # В словаре context отправляем информацию в шаблон
     context = {
-        'title': title,
-        'text': 'это главная страница проекта anfisa'
+        'posts': posts,
+        'text': 'заголовок'
     }
-    return render(request, template, context)
+    return render(request, 'posts/index.html', context)
 
 def group_posts(request, slug):
     template = 'posts/group_list.html'

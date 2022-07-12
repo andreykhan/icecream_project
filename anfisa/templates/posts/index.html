@@ -1,13 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
-{% for post in posts %}
-    <h1>{{post.author}}</h1>
-    <h2>{{post.pub_date}}</h2>
-    <h3>{{post.text}}</h3>
-{% endfor %}
-{% if post.group %}
-  <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-{% endif %}
+
+  {% for post in page_obj %}
+    ...Тут вывод списка записей...
+  {% endfor %}
+
 {% endblock %}
-
-
